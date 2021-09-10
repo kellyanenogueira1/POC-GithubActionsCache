@@ -4,7 +4,7 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on push or pull request events but only for the main and develop branches
   push:
     branches: [ main, develop ]
   pull_request:
@@ -25,15 +25,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
       
-    - uses: actions/cache@v1
+    - name: Carthage Cache
+      uses: actions/cache@v1
       id: carthage-cache
       with:
         path: Carthage
         key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
-    - name: Carthage
-      if: steps.carthage-cache.outputs.cache-hit != 'true'
-    
+        
     - name: Carthage Dependencies
+      if: steps.carthage-cache.outputs.cache-hit != 'true'
       run: |
         carthage bootstrap --no-use-binaries --platform iOS --cache-builds
       
