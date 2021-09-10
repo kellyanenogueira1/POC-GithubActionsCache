@@ -15,6 +15,7 @@
 		0B5208CE26EA8F39004D6B6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B5208CC26EA8F39004D6B6D /* LaunchScreen.storyboard */; };
 		0B5208D926EA8F39004D6B6D /* POC_GithubActionsCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5208D826EA8F39004D6B6D /* POC_GithubActionsCacheTests.swift */; };
 		0B5208E426EA8F39004D6B6D /* POC_GithubActionsCacheUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5208E326EA8F39004D6B6D /* POC_GithubActionsCacheUITests.swift */; };
+		0B5208FB26EBD1B9004D6B6D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B5208FA26EBD1B9004D6B6D /* Realm.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		0B5208DF26EA8F39004D6B6D /* POC-GithubActionsCacheUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "POC-GithubActionsCacheUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B5208E326EA8F39004D6B6D /* POC_GithubActionsCacheUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POC_GithubActionsCacheUITests.swift; sourceTree = "<group>"; };
 		0B5208E526EA8F39004D6B6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B5208FA26EBD1B9004D6B6D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Mac/Realm.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B5208FB26EBD1B9004D6B6D /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +86,7 @@
 				0B5208D726EA8F39004D6B6D /* POC-GithubActionsCacheTests */,
 				0B5208E226EA8F39004D6B6D /* POC-GithubActionsCacheUITests */,
 				0B5208BF26EA8F38004D6B6D /* Products */,
+				0B5208F926EBD1B9004D6B6D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +132,14 @@
 			path = "POC-GithubActionsCacheUITests";
 			sourceTree = "<group>";
 		};
+		0B5208F926EBD1B9004D6B6D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0B5208FA26EBD1B9004D6B6D /* Realm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,6 +150,7 @@
 				0B5208BA26EA8F38004D6B6D /* Sources */,
 				0B5208BB26EA8F38004D6B6D /* Frameworks */,
 				0B5208BC26EA8F38004D6B6D /* Resources */,
+				0B5208F826EBCF3A004D6B6D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -252,6 +265,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B5208F826EBCF3A004D6B6D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0B5208BA26EA8F38004D6B6D /* Sources */ = {
@@ -438,6 +472,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JCC32S9S9V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "POC-GithubActionsCache/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -457,6 +495,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JCC32S9S9V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "POC-GithubActionsCache/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
