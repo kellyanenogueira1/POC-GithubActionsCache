@@ -6,29 +6,28 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   build:
+  
     runs-on: macOS-latest
-    
     strategy:
-      matrix:
-        destination: ['platform=iOS Simulator, OS=3.7, name=iPhone 11']
-        xcode: ['/Applications/Xcode_12.2.app/Contents/Developer']
-
+        matrix:
+          destination: ['platform=iOS Simulator,OS=14.0,name=iPhone 11']
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Build and Test
-        run: |
-          xcodebuild clean test -project POC-GithubActionsCache.xcodeproj -scheme POC-GithubActionsCache -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-          bash <(curl -s https://codecov.io/bash)
-        env: 
-          destination: ${{matrix.destination}}
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Build and Test
+      run: |
+        xcrun simctl list
+        xcodebuild clean test -project POC-GithubActionsCache.xcodeproj -scheme POC-GithubActionsCache -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+        bash <(curl -s https://codecov.io/bash)
+      env: 
+        destination: ${{ matrix.destination }}
 
