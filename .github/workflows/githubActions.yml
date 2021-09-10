@@ -20,7 +20,7 @@ jobs:
       matrix:
         destination: ['platform=iOS Simulator,OS=14.3,name=iPhone 11']
     steps:
-      - name: Build and Test
+    - name: Build and Test
       run: |
         xcrun simctl list
         xcodebuild clean test -project POC-GithubActionsCache.xcodeproj -scheme POC-GithubActionsCache -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
