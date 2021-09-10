@@ -25,9 +25,9 @@ jobs:
         destination: ['platform=iOS Simulator,OS=14.2,name=iPhone 11']
         xcode: ['/Applications/Xcode_12.2.app/Contents/Developer']
 
-    defaults:
-      run:
-        working-directory: ./POC-GithubActionsCache
+    #defaults:
+      #run:
+        #working-directory: ./POC-GithubActionsCache
 
     steps:
 
@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache@v2.1.6
         id: carthage-cache
         with:
-          path: BaneseCard/Carthage
+          path: Carthage
           key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
 
       - name: Build Dependencies
