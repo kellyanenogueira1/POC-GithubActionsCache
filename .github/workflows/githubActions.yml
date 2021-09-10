@@ -21,7 +21,7 @@ jobs:
     defaults:
       run:
         working-directory: ./POC-GithubActionsCache
-        
+
     steps:
     - name: Build and Test
       run: |
@@ -29,4 +29,3 @@ jobs:
         bash <(curl -s https://codecov.io/bash)
       env: 
         destination: ${{ matrix.destination }}
-
