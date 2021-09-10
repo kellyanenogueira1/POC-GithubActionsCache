@@ -4,30 +4,45 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on push or pull request events but only for the main and develop branches
   push:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
 
 jobs:
-  build:
-  
-    runs-on: macOS-latest
+  test:
+
+    name: Test
+    env:
+      SCHEME: "POC-GithubActionsCache"
+      DEVICE: "iPhone 11"
+      DERIVED_DATA_PATH: "DerivedData"
+
+    runs-on: macos-latest
     strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,OS=14.5,name=iPhone 11']
-          #xcode: ['/Applications/Xcode_12.5.app/Contents/Developer']
+      matrix:
+        destination: ['platform=iOS Simulator,OS=14.2,name=iPhone 11']
+        xcode: ['/Applications/Xcode_12.2.app/Contents/Developer']
+
     #defaults:
       #run:
         #working-directory: ./POC-GithubActionsCache
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-      
-    - name: Build and Test
-      run: |
-        xcodebuild clean test -project POC-GithubActionsCache.xcodeproj -scheme POC-GithubActionsCache -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-        
-      env: 
-        destination: ${{ matrix.destination }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache
+        uses: actions/cache@v2.1.6
+        id: carthage-cache
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+
+      - name: Build Dependencies
+        if: steps.carthage-cache.outputs.cache-hit != 'true'
+        run: |
+          curl https://gist.githubusercontent.com/skymobilebuilds/61f4a95bd62a3db36b52719aeab7e0d5/raw/61affe5b13efaeb83ba3aaf5ef2cb97bab893485/carthage-xc12.sh -o wcarthage && chmod +x wcarthage
+          ./wcarthage bootstrap --platform iOS --cache-builds
