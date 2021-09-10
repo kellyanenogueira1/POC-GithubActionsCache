@@ -15,7 +15,7 @@ jobs:
 
     name: Test
     env:
-      SCHEME: "BaneseCardHomolog"
+      SCHEME: "POC-GithubActionsCache"
       DEVICE: "iPhone 11"
       DERIVED_DATA_PATH: "DerivedData"
 
